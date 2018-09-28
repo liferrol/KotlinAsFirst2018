@@ -3,6 +3,7 @@ package lesson1.task1
 
 import lesson2.task1.gradeNotation
 import lesson2.task2.pointInsideCircle
+import java.lang.Math.pow
 import kotlin.math.*
 
 /**
@@ -63,7 +64,6 @@ fun main(args: Array<String>) {
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
     val hours = 3600 * hours
     val minutes = 60 * minutes
-    val seconds = 1 * seconds
     return (hours + minutes + seconds)
 }
 
@@ -79,8 +79,6 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
     val arshins = 16 * 4.445 * arshins
     val sagenes = 48 * 4.445 * sagenes
     return ((vershoks + arshins + sagenes)/100.0)
-
-
 }
 
 /**
@@ -94,7 +92,6 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
     val min = 60.0 * min
     val grad = 3600.0 * grad
     return (sec + min + grad)/3600.0 * PI / 180
-
 }
 
 /**
@@ -114,7 +111,7 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
 fun thirdDigit(number: Int): Int {
-    return ((number % 1000) / 100)
+    return (number % 1000 / 100)
 }
 
 /**
@@ -125,7 +122,7 @@ fun thirdDigit(number: Int): Int {
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int ): Int {
-    return ((hoursArrive - hoursDepart) * 60 + (minutesArrive - minutesDepart))
+    return ((hoursArrive - hoursDepart) * 60 + minutesArrive - minutesDepart)
 }
 
 /**
@@ -148,6 +145,6 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int {
-    val number = ((number % 10)*100) + ((number % 100 / 10) * 10) + (number / 100)
+    val number = (number % 10*100) + (number % 100 / 10 * 10) + (number / 100)
     return (number)
 }
