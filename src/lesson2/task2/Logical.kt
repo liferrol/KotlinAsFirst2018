@@ -45,7 +45,7 @@ fun daysInMonth(month: Int, year: Int): Int {
     var days = 0
     if (((month == 2) && (year%4 == 0 ) && (year%100 !== 0)) || ((month == 2) && (year%400 == 0 ))) days = (29)
     if (((month == 2) && (year%4 !== 0 )) || ((month == 2) && (year%400 !== 0) && (year%100 == 0)))  days = (28)
-    if ((month%2 == 0) &&(month !== 2)) days = (30)
+    if (((month%2 == 0) &&(month !== 2)) || (month in 7..12) && (month%2 !== 0)) days = (30)
     if ((month == 1) or  ((month in 3..7) && (month%2 !== 0)) or  ((month in 7..12) && (month%2 == 0))) days = (31)
     return (days)
 }
