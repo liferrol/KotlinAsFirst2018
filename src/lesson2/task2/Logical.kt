@@ -46,7 +46,7 @@ fun daysInMonth(month: Int, year: Int): Int {
     if (((month == 2) && (year%4 == 0 ) && (year%100 !== 0)) || ((month == 2) && (year%400 == 0 ))) days = (29)
     if (((month == 2) && (year%4 !== 0 )) || ((month == 2) && (year%400 !== 0) && (year%100 == 0)))  days = (28)
     if (((month%2 == 0) &&(month !== 2)) || ((month in 7..12) && (month%2 !== 0))) days = (30)
-    if ((month == 1) or  ((month in 3..7) && (month%2 !== 0)) or  ((month in 7..12) && (month%2 == 0))) days = (31)
+    if ((month == 1) or  ((month in 3..7) && (month%2 !== 0)) ||  ((month in 7..12) && (month%2 == 0))) days = (31)
     return (days)
 }
 
@@ -61,7 +61,7 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
     var x12:Double = sqr(x2-x1)
     var y12:Double = sqr(y2-y1)
-    return ((sqrt(x12 + y12) + r1) <= r2)
+    return (sqrt(x12 + y12) + r1 <= r2)
 }
 
 /**

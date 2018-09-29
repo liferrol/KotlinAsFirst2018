@@ -90,8 +90,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
     var halfs = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
     if (halfs <= t1 * v1) time = (halfs/v1)
     if (halfs > t1 * v1 && halfs <= t2 * v2 + t1 * v1) time = ((halfs - t1*v1)/v2 + t1)
-    if ((halfs > t1 * v1 + t2 * v2 && halfs <= t3 * v3 + t2 * v2 + t1 * v1)) time = (((halfs - t1 * v1 - t2 * v2)/ v3) + t1 + t2)
-    return (time)
+    if (halfs > t1 * v1 + t2 * v2 && halfs <= t3 * v3 + t2 * v2 + t1 * v1) time = ((halfs - t1 * v1 - t2 * v2)/ v3 + t1 + t2)
+    return time
 }
 
 
@@ -129,7 +129,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
     var threat = 0
     if ((kingX == rookX) || (kingY == rookY)) threat = (threat + 1)
     if (abs(kingX - bishopX ) == abs(kingY - bishopY)) threat = (threat + 2)
-    return (threat)
+    return threat
 }
 
 /**
