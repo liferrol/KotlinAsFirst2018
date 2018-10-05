@@ -86,12 +86,13 @@ fun ageDescription(age: Int): String = when {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    var time = 0.0
     var halfs = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
-    if (halfs <= t1 * v1) time = (halfs/v1)
-    if (halfs > t1 * v1 && halfs <= t2 * v2 + t1 * v1) time = ((halfs - t1*v1)/v2 + t1)
-    if (halfs > t1 * v1 + t2 * v2 && halfs <= t3 * v3 + t2 * v2 + t1 * v1) time = ((halfs - t1 * v1 - t2 * v2)/ v3 + t1 + t2)
-    return time
+    return when {
+        halfs <= t1 * v1 -> halfs / v1
+        halfs > t1 * v1 && halfs <= t2 * v2 + t1 * v1-> (halfs - t1 * v1) / v2 + t1
+        halfs > t1 * v1 + t2 * v2 && halfs <= t3 * v3 + t2 * v2 + t1 * v1 -> (halfs - t1 * v1 - t2 * v2) / v3 + t1 + t2
+    else -> 0.0
+    }
 }
 
 
@@ -108,8 +109,8 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
     var threat = 0
-    if ((kingX == rookX1) || (kingY == rookY1)) threat = (threat + 1)
-    if ((kingX == rookX2) || (kingY == rookY2)) threat = (threat + 2)
+    if ((kingX == rookX1) || (kingY == rookY1)) threat += 1
+    if ((kingX == rookX2) || (kingY == rookY2)) threat += 2
     return threat
 }
 
@@ -158,10 +159,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = when {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    var length: Int = -1
-    if ((b >= c) && (a <= c) && (b <= d)) length = (b - c)
-    if ((b >= d) && (a >= c) && (a <= d)) length = (d - a)
-    if ((b >= d) && (a <= c)) length = (d - c)
-    if ((b <= d) && (a >= c)) length = (b - a)
-    return length
+    return when {
+         ((b >= c) && (a <= c) && (b <= d)) -> (b - c)
+         ((b >= d) && (a >= c) && (a <= d)) ->(d - a)
+         ((b >= d) && (a <= c)) -> (d - c)
+         ((b <= d) && (a >= c))  -> (b - a)
+        else -> -1
+    }
 }
