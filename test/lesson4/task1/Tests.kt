@@ -93,7 +93,7 @@ class Tests {
     @Test
     @Tag("Easy")
     fun mean() {
-        assertEquals(0.0, mean(listOf()), 1e-5)
+         assertEquals(0.0, mean(listOf()), 1e-5)
         assertEquals(1.0, mean(listOf(1.0)), 1e-5)
         assertEquals(2.0, mean(listOf(3.0, 1.0, 2.0)), 1e-5)
         assertEquals(3.0, mean(listOf(0.0, 2.0, 7.0, 8.0, -2.0)), 1e-5)
@@ -175,7 +175,7 @@ class Tests {
     @Test
     @Tag("Normal")
     fun convert() {
-        assertEquals(listOf(1), convert(1, 2))
+         assertEquals(listOf(1), convert(1, 2))
         assertEquals(listOf(1, 2, 1, 0), convert(100, 4))
         assertEquals(listOf(1, 3, 12), convert(250, 14))
         assertEquals(listOf(2, 14, 12), convert(1000, 19))

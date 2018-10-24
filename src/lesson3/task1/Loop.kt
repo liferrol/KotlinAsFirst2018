@@ -269,7 +269,7 @@ fun isPalindrome(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+ fun hasDifferentDigits(n: Int): Boolean = TODO()
 
 /**
  * Сложная
