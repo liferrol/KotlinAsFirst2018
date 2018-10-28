@@ -119,9 +119,9 @@ return mapC
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val resultgrades = mutableMapOf<Int, List<String>>()
     val k = mutableSetOf<Int>()
-    val mainname = mutableListOf<String>()
     for (score in grades.values) k += score
     for (scores in k) {
+        val mainname = mutableListOf<String>()
         for ((name, mark) in grades)
             if (mark == scores) mainname += name
         resultgrades += (scores to mainname)

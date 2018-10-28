@@ -201,14 +201,16 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    var result = 0.0
+    var sum = 0.0
     var v = 0.0
-    for (element in p) {
-        v = Math.pow(x, p.indexOf(element).toDouble()) * element
-        result += v
+    for (i in 0 until p.size) {
+        val x = p[i] * Math.pow(x, sum)
+        v += x
+        sum += 1
     }
-    return result
+    return v
 }
+
 
 /**
  * Средняя
