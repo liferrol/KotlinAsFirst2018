@@ -89,9 +89,9 @@ fun timeForHalfWay(t1: Double, v1: Double,
     var halfs = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
     return when {
         halfs <= t1 * v1 -> halfs / v1
-        halfs > t1 * v1 && halfs <= t2 * v2 + t1 * v1-> (halfs - t1 * v1) / v2 + t1
+        halfs > t1 * v1 && halfs <= t2 * v2 + t1 * v1 -> (halfs - t1 * v1) / v2 + t1
         halfs > t1 * v1 + t2 * v2 && halfs <= t3 * v3 + t2 * v2 + t1 * v1 -> (halfs - t1 * v1 - t2 * v2) / v3 + t1 + t2
-    else -> 0.0
+        else -> 0.0
     }
 }
 
@@ -128,8 +128,8 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int  {
     var threat = 0
-    if ((kingX == rookX) || (kingY == rookY)) threat = (threat + 1)
-    if (abs(kingX - bishopX ) == abs(kingY - bishopY)) threat = (threat + 2)
+    if ((kingX == rookX) || (kingY == rookY)) threat += 1
+    if (abs(kingX - bishopX) == abs(kingY - bishopY)) threat += 2
     return threat
 }
 
@@ -141,12 +141,19 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = when {
-    ((a + b < c) || (c + b < a) || (a + c < b)) -> (-1)
-    (((a * a + b * b) > c * c) && (c * c + b * b > a * a) && (a * a + c * c) > b * b) -> (0)
-    ((a * a + b * b == c * c) || (c * c + b * b == a * a) || (a * a + c * c == b * b)) -> (1)
-    ((a * a + b * b < c * c) || (c * c + b * b < a * a) || (a * a + c * c < b * b)) -> (2)
-    else -> (7)
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    var xa = Math.pow(a, 2.0)
+    var xb = Math.pow(b, 2.0)
+    var xc = Math.pow(b, 2.0)
+    var x = 0
+    when {
+        ((a + b < c) || (c + b < a) || (a + c < b)) -> (-1)
+        ((xa + xb) > xc) && (xc + xb > xa) && ((xa + xc) > xb) -> x = 0
+        ((xa + xb == xc) || (xc + xb == xa) || (xa + xc == xb)) -> x = 1
+        ((xa + xb < xc) || (xc + xb < xa) || (xa + xc < xb)) -> x = 2
+        else -> x = 11
+    }
+    return x
 }
 
 
@@ -160,10 +167,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = when {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-         ((b >= c) && (a <= c) && (b <= d)) -> (b - c)
-         ((b >= d) && (a >= c) && (a <= d)) ->(d - a)
-         ((b >= d) && (a <= c)) -> (d - c)
-         ((b <= d) && (a >= c))  -> (b - a)
+        ((b >= c) && (a <= c) && (b <= d)) -> (b - c)
+        ((b >= d) && (a >= c) && (a <= d)) -> (d - a)
+        ((b >= d) && (a <= c)) -> (d - c)
+        ((b <= d) && (a >= c)) -> (b - a)
         else -> -1
     }
 }
