@@ -125,7 +125,23 @@ fun dateDigitToStr(digital: String): String {
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    var phonex = phone
+    var sum = 0
+    phonex = phonex.filter {
+        it !in setOf('(', ')', ' ', '-')
+    }
+    return try {
+        if (phonex.isEmpty()) throw NumberFormatException()
+        phonex.forEach {
+            if (it.toInt() in '0'.toInt()..'9'.toInt() || (it == '+')) sum++
+        }
+        if (sum != phonex.length) throw NumberFormatException()
+        phonex
+    } catch (e: NumberFormatException) {
+        ""
+    }
+}
 
 /**
  * Средняя
@@ -137,19 +153,44 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    var max = -1
+    val kol = mutableListOf<Int>()
+    val parts = jumps.split(' ')
+    return try {
+        for (element in parts)
+            if (element != " " && element != "%" && element != "-") kol += element.toInt()
+        for (elements in kol)
+            max = maxOf(elements, max)
+        (if (kol.isNotEmpty()) max else -1)
+    } catch (e: NumberFormatException) {
+        -1
+    }
+}
+
 
 /**
  * Сложная
  *
  * Результаты спортсмена на соревнованиях в прыжках в высоту представлены строкой вида
- * "220 + 224 %+ 228 %- 230 + 232 %%- 234 %".
+ * "220.+.224.+.228.230.+.232.234".             "226.+"
  * Здесь + соответствует удачной попытке, % неудачной, - пропущенной.
  * Высота и соответствующие ей попытки разделяются пробелом.
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(' ')
+    var result = 0
+    return try {
+        for (x in 0 until (parts.size - 1))
+            if (parts[x + 1] == "+" || parts[x + 1] == "$+" || parts[x + 1] == "$$+")
+                result = maxOf(result, parts[x].toInt())
+        (if (result != 0) result else -1)
+    } catch (e: NumberFormatException) {
+        -1
+    }
+}
 
 /**
  * Сложная

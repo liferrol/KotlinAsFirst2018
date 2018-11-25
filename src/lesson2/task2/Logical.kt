@@ -31,7 +31,7 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    return (x1 == x2 || y1 == y2 || abs(x1 - x2) == abs(y1 - y2))
+    return x1 == x2 || y1 == y2 || abs(x1 - x2) == abs(y1 - y2)
 }
 
 
@@ -60,9 +60,9 @@ fun daysInMonth(month: Int, year: Int): Int {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
-    var DistX = sqr(x2 - x1)
-    var DistY = sqr(y2 - y1)
-    return (sqrt(DistX + DistY) + r1 <= r2)
+    var distx = sqr(x2 - x1)
+    var disty = sqr(y2 - y1)
+    return (sqrt(distx + disty) + r1 <= r2)
 }
 
 /**
@@ -76,9 +76,9 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
         ((a <= r) && (b <= s))
-                || ((a <= s) && (b <= r))
-                || ((a <= r) && (c <= s))
-                || ((a <= s) && (c <= r))
-                || ((b <= r) && (c <= s))
-                || ((b <= s) && (c <= r))
+                || (a <= s && b <= r)
+                || (a <= r && c <= s)
+                || (a <= s && c <= r)
+                || (b <= r && c <= s)
+                || (b <= s && c <= r)
 

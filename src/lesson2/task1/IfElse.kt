@@ -147,10 +147,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     var xc = Math.pow(b, 2.0)
     var x = 0
     when {
-        ((a + b < c) || (c + b < a) || (a + c < b)) -> (-1)
-        ((xa + xb) > xc) && (xc + xb > xa) && ((xa + xc) > xb) -> x = 0
-        ((xa + xb == xc) || (xc + xb == xa) || (xa + xc == xb)) -> x = 1
-        ((xa + xb < xc) || (xc + xb < xa) || (xa + xc < xb)) -> x = 2
+        (a + b < c || c + b < a || a + c < b) -> -1
+        (xa + xb > xc && xc + xb > xa && xa + xc > xb) -> x = 0
+        (xa + xb == xc || xc + xb == xa || xa + xc == xb) -> x = 1
+        (xa + xb < xc || xc + xb < xa || xa + xc < xb) -> x = 2
         else -> x = 11
     }
     return x
