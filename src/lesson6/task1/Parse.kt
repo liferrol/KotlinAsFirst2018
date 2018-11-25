@@ -51,12 +51,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -75,19 +73,18 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
-    if (parts.size == 3) {
-        val a = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
-                "сентября", "октября", "ноября", "декабря")
-        var month1 = 0
+    val a = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+            "сентября", "октября", "ноября", "декабря")
+    var month = 0
+    if (parts.size == 3)
         for (element in a) {
-            if (parts[1] == element) month1 = a.indexOf(element) + 1
+            if (parts[1] == element) month = a.indexOf(element) + 1
         }
-        if (month1 <= 0) return ""
-        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
-        else
-            return String.format("%02d.%02d.%04d", parts[0].toInt(), month1, parts[2].toInt())
-    } else return ""
+    if (month <= 0 || parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
+    else
+        return String.format("%02d.%02d.%10d", parts[0].toInt(), month, parts[2].toInt())
 }
+
 /**
  * Средняя
  *
@@ -104,7 +101,7 @@ fun dateDigitToStr(digital: String): String {
             "сентября", "октября", "ноября", "декабря")
     var monthx = ""
     try {
-        if (parts.size !== 3 || parts[1].toInt() !in 1..12) throw NumberFormatException()
+        if (parts.size != 3 || parts[1].toInt() !in 1..12) throw NumberFormatException()
         else monthx = a[parts[1].toInt() - 1]
         if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) throw NumberFormatException()
         return String.format("%d %s %d", parts[0].toInt(), monthx, parts[2].toInt())
@@ -214,7 +211,6 @@ fun plusMinus(expression: String): Int = TODO()
  */
 fun firstDuplicateIndex(str: String): Int {
     val parts = str.split(" ").map { it -> it.toLowerCase() }
-    var x = 0
     var result = -1
     for (x in 0 until parts.size - 1) {
         if (parts[x] == parts[x + 1]) {
