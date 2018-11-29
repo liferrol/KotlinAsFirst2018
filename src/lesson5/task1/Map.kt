@@ -152,18 +152,18 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = b+a ==
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val mainMap = stockPrices.toMap().toMutableMap()
-    var y = 0
-    var x = 0.0
-    for (name1 in mainMap.keys) {
-        for ((name, price) in stockPrices) {
-            if (name == name1) x += price; y += 1
-        }
-        if (y > 1) {
-            mainMap[name1] = x / y
-        }
+    val result = stockPrices.toMap().toMutableMap()
+    for (x in result.keys) {
+        var sum = 0.0
+        var abs = 0
+        for ((y) in stockPrices)
+            if (y == x) abs++
+        for ((z, s2) in stockPrices)
+            if (z == x) sum += (s2 / abs)
+        for ((z) in stockPrices)
+            if (z == x) result[x] = sum
     }
-    return mainMap
+    return result
 }
 /**
  * Средняя
@@ -223,9 +223,11 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
-    val c = a.toMap()
-    for (x in c.keys)
-        if (c[x] == b[x]) a.remove(x)
+    val result = mutableListOf<String>()
+    b.forEach {
+        if (b[it.key] == a[it.key]) result.add(it.key)
+    }
+    a -= result
 }
 
 /**

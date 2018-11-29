@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.util.*
 
 /**
  * Пример
@@ -192,13 +193,32 @@ fun bestHighJump(jumps: String): Int {
 /**
  * Сложная
  *
- * В строке представлено выражение вида "2 + 31 - 40 + 13",
+ * В строке представлено выражение вида "2+31-40+13",
+ * Expected :6
+ * Actual   :8
  * использующее целые положительные числа, плюсы и минусы, разделённые пробелами.
  * Наличие двух знаков подряд "13 + + 10" или двух чисел подряд "1 2" не допускается.
  * Вернуть значение выражения (6 для примера).
- * Про нарушении формата входной строки бросить исключение IllegalArgumentException
+ * Про нарушении формата входной строки бросить исключение IllegalArgumentException             "2+2"
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val parts = expression.split(' ')
+    for (x in 0 until parts.size step 2)
+        if (parts[x].isNotEmpty()) {
+            for (x in parts[x])
+                if ((x.toInt() in 48..58)) continue else
+                    throw IllegalArgumentException()
+        } else throw IllegalArgumentException()
+    var result = parts[0].toInt()
+    for (x in 1 until (parts.size - 1) step 2) {
+        when {
+            parts[x] == "+" -> result += parts[x + 1].toInt()
+            parts[x] == "-" -> result -= parts[x + 1].toInt()
+            else -> throw IllegalArgumentException()
+        }
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -210,16 +230,19 @@ fun plusMinus(expression: String): Int = TODO()
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val parts = str.split(" ").map { it -> it.toLowerCase() }
+    val parts = str.split(' ')
+    var con = 0
     var result = -1
-    for (x in 0 until parts.size - 1) {
-        if (parts[x] == parts[x + 1]) {
-            result = x
+    if (parts.size >= 2) for (x in 0 until parts.size - 1) {
+        if (parts[x].toLowerCase() == parts[x + 1].toLowerCase()) {
+            result = x + con
             break
-        } else result += parts[x].length + 1
+        }
+        con += parts[x].length
     }
     return result
 }
+
 
 
 /**
@@ -284,4 +307,7 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+    TODO()
+}
+
