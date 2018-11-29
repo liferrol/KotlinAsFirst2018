@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson1.task1
 
 import lesson2.task1.gradeNotation
@@ -64,7 +65,7 @@ fun main(args: Array<String>) {
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
     val hours = 3600 * hours
     val minutes = 60 * minutes
-    return (hours + minutes + seconds)
+    return hours + minutes + seconds
 }
 
 /**
@@ -78,7 +79,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
     val vershoks = 4.445 * vershoks
     val arshins = 16 * 4.445 * arshins
     val sagenes = 48 * 4.445 * sagenes
-    return ((vershoks + arshins + sagenes)/100.0)
+    return (vershoks + arshins + sagenes) / 100.0
 }
 
 /**
@@ -91,7 +92,7 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
     val sec = 1.0 * sec
     val min = 60.0 * min
     val grad = 3600.0 * grad
-    return (sec + min + grad)/3600.0 * PI / 180
+    return (sec + min + grad) / 3600.0 * PI / 180
 }
 
 /**
@@ -121,7 +122,7 @@ fun thirdDigit(number: Int): Int {
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int ): Int {
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
     return (hoursArrive - hoursDepart) * 60 + minutesArrive - minutesDepart
 }
 
@@ -133,7 +134,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-   return initial * Math.pow((100 + percent) / 100.0 , 3.0 )
+    return initial * Math.pow((100 + percent) / 100.0, 3.0)
 }
 
 
@@ -144,6 +145,5 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int {
-    val number = (number % 10 * 100 + number % 100 / 10 * 10 + number / 100)
-    return (number)
+    return number % 10 * 100 + number % 100 / 10 * 10 + number / 100
 }

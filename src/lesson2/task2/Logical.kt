@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
@@ -23,6 +24,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
 fun isNumberHappy(number: Int): Boolean {
     return (number / 1000 + number % 1000 / 100 == number / 10 % 10 + number % 10)
 }
+
 /**
  * Простая
  *
@@ -43,10 +45,10 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  */
 fun daysInMonth(month: Int, year: Int): Int {
     return when {
-        ((month == 2) && (year % 4 == 0) && (year % 100 !== 0)) || ((month == 2) && (year % 400 == 0)) -> 29
-        ((month == 2) && (year % 4 !== 0)) || ((month == 2) && (year % 400 !== 0) && (year % 100 == 0)) -> 28
-        ((month % 2 == 0) && (month !== 2)) || ((month in 7..12) && (month % 2 !== 0)) -> 30
-        (month == 1) || ((month in 3..7) && (month % 2 !== 0)) || ((month in 7..12) && (month % 2 == 0)) -> 31
+        (month == 2 && ((year % 4 == 0 && year % 100 !== 0) || year % 400 == 0)) -> 29
+        (month == 2 && (year % 4 !== 0 || (year % 400 !== 0 && year % 100 == 0))) -> 28
+        (month == 4 || month == 6 || month == 9 || month == 11) -> 30
+        (month == 1) || (month in 3..7 && month % 2 !== 0) || (month in 7..12 && month % 2 == 0) -> 31
         else -> 0
     }
 }
@@ -60,8 +62,8 @@ fun daysInMonth(month: Int, year: Int): Int {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
-    var distx = sqr(x2 - x1)
-    var disty = sqr(y2 - y1)
+    val distx = sqr(x2 - x1)
+    val disty = sqr(y2 - y1)
     return (sqrt(distx + disty) + r1 <= r2)
 }
 

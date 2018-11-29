@@ -87,10 +87,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
     var halfs = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
+    val tv1 = t1 * v1
+    val tv2 = t2 * v2
+    val tv3 = t3 * v3
     return when {
-        halfs <= t1 * v1 -> halfs / v1
-        halfs > t1 * v1 && halfs <= t2 * v2 + t1 * v1 -> (halfs - t1 * v1) / v2 + t1
-        halfs > t1 * v1 + t2 * v2 && halfs <= t3 * v3 + t2 * v2 + t1 * v1 -> (halfs - t1 * v1 - t2 * v2) / v3 + t1 + t2
+        halfs <= tv1 -> halfs / v1
+        halfs in tv1..tv2 + tv1 -> (halfs - tv1) / v2 + t1
+        halfs in (tv1 + tv2)..(tv3 + tv2 + tv1) -> (halfs - tv1 - tv2) / v3 + t1 + t2
         else -> 0.0
     }
 }
@@ -126,7 +129,7 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int  {
+                          bishopX: Int, bishopY: Int): Int {
     var threat = 0
     if ((kingX == rookX) || (kingY == rookY)) threat += 1
     if (abs(kingX - bishopX) == abs(kingY - bishopY)) threat += 2
@@ -145,15 +148,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     var xa = Math.pow(a, 2.0)
     var xb = Math.pow(b, 2.0)
     var xc = Math.pow(b, 2.0)
-    var x = 0
-    when {
+    return when {
         (a + b < c || c + b < a || a + c < b) -> -1
-        (xa + xb > xc && xc + xb > xa && xa + xc > xb) -> x = 0
-        (xa + xb == xc || xc + xb == xa || xa + xc == xb) -> x = 1
-        (xa + xb < xc || xc + xb < xa || xa + xc < xb) -> x = 2
-        else -> x = 11
+        (xa + xb > xc && xc + xb > xa && xa + xc > xb) -> 0
+        (xa + xb == xc || xc + xb == xa || xa + xc == xb) -> 1
+        (xa + xb < xc || xc + xb < xa || xa + xc < xb) -> 2
+        else -> -1
     }
-    return x
 }
 
 
@@ -167,10 +168,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-        ((b >= c) && (a <= c) && (b <= d)) -> (b - c)
-        ((b >= d) && (a >= c) && (a <= d)) -> (d - a)
-        ((b >= d) && (a <= c)) -> (d - c)
-        ((b <= d) && (a >= c)) -> (b - a)
+        (c in a..b && b <= d) -> b - c
+        (b >= d && a >= c && a <= d) -> d - a
+        (b >= d && a <= c) -> d - c
+        (b <= d && a >= c) -> b - a
         else -> -1
     }
 }
