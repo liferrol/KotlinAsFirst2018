@@ -145,9 +145,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    var xa = Math.pow(a, 2.0)
-    var xb = Math.pow(b, 2.0)
-    var xc = Math.pow(b, 2.0)
+    val xa = Math.pow(a, 2.0)
+    val xb = Math.pow(b, 2.0)
+    val xc = Math.pow(c, 2.0)
     return when {
         (a + b < c || c + b < a || a + c < b) -> -1
         (xa + xb > xc && xc + xb > xa && xa + xc > xb) -> 0
