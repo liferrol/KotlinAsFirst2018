@@ -81,13 +81,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-   val file = File(inputName).readText()
-    for (x in file){
-    for (xx in 0 until file.length - 1) {
-        val secelement = file.indexOf(x) + 1
-        if (x == "Ж" && file[secelement] == "Ы") file[secelement] = "И"
-        }
-    }
+    TODO()
 }
 
 /**
