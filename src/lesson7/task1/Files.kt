@@ -81,7 +81,25 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    fun sibilants(inputName: String, outputName: String) {
+        val writer = File(outputName).bufferedWriter()
+        val right = listOf('И', 'А', 'У', 'и', 'а', 'у')
+        val wrong = listOf('Ы', 'Я', 'Ю', 'ы', 'я', 'ю')
+        val letters = listOf('Ж', 'Ч', 'Ш', 'Щ', 'ж', 'ч', 'ш', 'щ')
+        val str = File(inputName).readLines()
+        for ((i, l) in str.withIndex()) {
+            var current = l[0].toString()
+            for (i in 1 until l.length) {
+                current += if (l[i] in wrong && l[i - 1] in letters)
+                    right[wrong.indexOf(l[i])]
+                else l[i]
+            }
+            if (i != 0) writer.newLine()
+            writer.write(current)
+        }
+        writer.close()
+    }
+
 }
 
 /**
