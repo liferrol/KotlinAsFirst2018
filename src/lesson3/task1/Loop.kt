@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
 import jdk.nashorn.internal.runtime.JSType.toInt32
@@ -43,7 +44,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -72,9 +73,11 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var number:Int = 1
-    var a:Int = n
-    while (a/10 > 0) {number += 1 ; a /= 10}
+    var number: Int = 1
+    var a: Int = n
+    while (a / 10 > 0) {
+        number += 1; a /= 10
+    }
     return number
 }
 
@@ -90,12 +93,12 @@ fun fib(n: Int): Int {
     var result: Int = 0
     if (n in 1..2) result = 1
     if (n == 3) result = 2
-    else  for (i in 3..n) {
-     result =  i1 + i2
+    else for (i in 3..n) {
+        result = i1 + i2
         i1 = i2
         i2 = result
     }
-return result
+    return result
 }
 
 /**
@@ -122,8 +125,8 @@ fun minDivisor(n: Int): Int {
     var del: Int
     for (del in 1..n) {
         if (n % del == 0 && del !== 1 && del < mindel) mindel = del
-}
-return mindel
+    }
+    return mindel
 }
 
 /**
@@ -132,12 +135,12 @@ return mindel
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-var maxdel = 1
-var del: Int
-for (del in 1..n) {
-    if (n % del == 0 && del !== n && del > maxdel) maxdel = del
-}
-return maxdel
+    var maxdel = 1
+    var del: Int
+    for (del in 1..n) {
+        if (n % del == 0 && del !== n && del > maxdel) maxdel = del
+    }
+    return maxdel
 }
 
 /**
@@ -155,6 +158,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     }
     return maxdel == 1
 }
+
 /**
  * Простая
  *
@@ -163,7 +167,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-   return (sqrt(m * 1.0) <= floor(sqrt(n * 1.0)))
+    return (sqrt(m * 1.0) <= floor(sqrt(n * 1.0)))
 }
 
 /**
@@ -190,7 +194,7 @@ fun collatzSteps(x: Int): Int {
         else n = 3 * n + 1
         k += 1
     }
-return k
+    return k
 }
 
 /**
@@ -219,17 +223,17 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
- var k = 0.0
+    var k = 0.0
     var xn = n
     var x = n
-    var b:Double
+    var b: Double
     var b1 = 0.0
     while (x > 0) {
-        k+= 1.0
+        k += 1.0
         x /= 10
     }
     while (xn > 0) {
-        b = xn % 10 * Math.pow(10.0 , k) / 10
+        b = xn % 10 * Math.pow(10.0, k) / 10
         k -= 1.0
         xn /= 10
         b1 += b
@@ -246,21 +250,8 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var tru = 0
-    var k = 0
-    var x = n
-    while (x > 0) {
-        k += 1
-        x /= 10
-    }
-    if (k == 1) tru = 1
-    else for (i  in 1..k/2){
-        if (n / Math.pow(10.0, toDouble(i)) == n % Math.pow(10.0, toDouble(i))) tru = 1
-        else tru = 0
-    }
-    return tru == 1
-}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
+
 /**
  * Средняя
  *
@@ -269,7 +260,19 @@ fun isPalindrome(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
- fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var x = n % 10
+    var xx = n / 10
+    while (xx > 0) {
+        if (xx % 10 == x)
+            xx /= 10
+        else {
+            x = -1
+            break
+        }
+    }
+    return x == -1
+}
 
 /**
  * Сложная
