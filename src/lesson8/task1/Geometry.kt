@@ -111,11 +111,11 @@ fun diameter(vararg points: Point): Segment {
     var max = 0.0
     var cons = 0.0
     var result = Segment(Point(0.0, 0.0), Point(0.0, 0.0))
-    for (x in 0 until points.size){
-        for (y in (x + 1) until points.size){
+    for (x in 0 until points.size) {
+        for (y in (x + 1) until points.size) {
             max = maxOf(points[x].distance(points[y]), max)
             if (cons != max) result = Segment(points[x], points[y])
-        cons = max
+            cons = max
         }
     }
     return result
@@ -170,7 +170,11 @@ class Line private constructor(val b: Double, val angle: Double) {
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line = TODO()
+fun lineBySegment(s: Segment): Line {
+    val ang = sin((s.end.y - s.begin.y) / s.begin.distance(s.end))
+    if (ang !in 0.0..PI) throw IllegalArgumentException()
+    return Line(s.begin, ang)
+}
 
 /**
  * Средняя

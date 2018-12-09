@@ -4,6 +4,7 @@ package lesson3.task1
 
 import jdk.nashorn.internal.runtime.JSType.toInt32
 import jdk.nashorn.internal.runtime.JSType.toDouble
+import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
@@ -76,7 +77,8 @@ fun digitNumber(n: Int): Int {
     var number: Int = 1
     var a: Int = n
     while (a / 10 > 0) {
-        number += 1; a /= 10
+        number += 1
+        a /= 10
     }
     return number
 }
@@ -88,9 +90,9 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var i1: Int = 1
-    var i2: Int = 1
-    var result: Int = 0
+    var i1 = 1
+    var i2 = 1
+    var result = 0
     if (n in 1..2) result = 1
     if (n == 3) result = 2
     else for (i in 3..n) {
@@ -100,6 +102,7 @@ fun fib(n: Int): Int {
     }
     return result
 }
+
 
 /**
  * Простая
@@ -122,9 +125,8 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var mindel = n
-    var del: Int
-    for (del in 1..n) {
-        if (n % del == 0 && del !== 1 && del < mindel) mindel = del
+    for (del in 2..n) {
+        if (n % del == 0 && del < mindel) mindel = del
     }
     return mindel
 }
@@ -136,9 +138,8 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var maxdel = 1
-    var del: Int
     for (del in 1..n) {
-        if (n % del == 0 && del !== n && del > maxdel) maxdel = del
+        if (n % del == 0 && del != n && del > maxdel) maxdel = del
     }
     return maxdel
 }
@@ -152,7 +153,6 @@ fun maxDivisor(n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var maxdel = 0
-    var del: Int
     for (del in 1..n) {
         if (n % del == 0 && m % del == 0 && del > maxdel) maxdel = del
     }
@@ -166,9 +166,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    return (sqrt(m * 1.0) <= floor(sqrt(n * 1.0)))
-}
+fun squareBetweenExists(m: Int, n: Int): Boolean = (sqrt(m.toDouble()) <= floor(sqrt(n.toDouble())))
+
 
 /**
  * Средняя
@@ -189,7 +188,7 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
 fun collatzSteps(x: Int): Int {
     var k = 0
     var n = x
-    while (n !== 1) {
+    while (n != 1) {
         if (n % 2 == 0) n /= 2
         else n = 3 * n + 1
         k += 1
@@ -283,7 +282,18 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var f = 0
+    var num = 0
+    for (x in 1..n) {
+        num = sqr(x)
+        val ff = digitNumber(num)
+        f += ff
+        if (f >= n) break
+    }
+    for (x in 1..(f - n)) num /= 10
+    return num % 10
+}
 
 /**
  * Сложная
