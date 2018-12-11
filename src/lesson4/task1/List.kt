@@ -119,13 +119,13 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var ABS = 0.0
-    var ABS1 = 0.0
+    var abs = 0.0
+    var abs1: Double
     for (element in v) {
-        ABS1 = Math.pow(element, 2.0)
-        ABS = ABS + ABS1
+        abs1 = Math.pow(element, 2.0)
+        abs = abs + abs1
     }
-    return sqrt(ABS)
+    return sqrt(abs)
 }
 
 /**
@@ -134,17 +134,16 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var AVER = 0.0
-    var result = 0.0
-    var AVER1 = 0.0
-    var x = list.size
+    var aver = 0.0
+    var aver1: Double
+    val x = list.size
     for (element in list) {
-        AVER1 = element
-        AVER = AVER + AVER1
+        aver1 = element
+        aver += aver1
     }
-    if (x == 0) result = 0.0
-    else result = AVER / x
-    return result
+    return if (x == 0) 0.0
+    else aver / x
+
 }
 
 /**
@@ -156,20 +155,17 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    var AVER = 0.0
-    var AVER1 = 0.0
-    var AVEREND = 0.0
-    var x = list.size
+    var aver = 0.0
+    val x = list.size
     for (element in list) {
-        AVER1 = element
-        AVER = AVER + AVER1
+        val aver1 = element
+        aver = aver + aver1
     }
-    AVEREND = AVER / x
-    if (AVEREND == 0.0) return list
+    val averend = aver / x
+    if (averend == 0.0) return list
     else
         for (i in 0 until list.size) {
-            var element = list[i.toInt()]
-            list[i.toInt()] = element - AVEREND
+            list[i] -= averend
         }
     return list
 }
@@ -182,16 +178,14 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    var c= mutableListOf<Double>()
-    var x = 0.0
-    var result = 0.0
-    for (i in 0..a.size-1){
-        x = a[i] * b[i]
+    val c = mutableListOf<Double>()
+    for (i in 0 until a.size - 1) {
+        val x = a[i] * b[i]
         c.add(x)
     }
-    result = c.sum()
-    return result
+    return c.sum()
 }
+
 /**
  * Средняя
  *
@@ -201,12 +195,10 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    var sum = 0.0
     var v = 0.0
     for (i in 0 until p.size) {
-        val x = p[i] * Math.pow(x, sum)
-        v += x
-        sum += 1
+        val xxx = p[i] * Math.pow(x, i.toDouble())
+        v += xxx
     }
     return v
 }
@@ -224,13 +216,11 @@ fun polynom(p: List<Double>, x: Double): Double {
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     var y = 0.0
-    var x = 0.0
-    var j = list.size
     for (element in 0 until list.size) {
         if (list.size <= 1) return list
         else y += list[element]
         list[element] = y
-        }
+    }
     return list
 }
 
@@ -243,7 +233,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  */
 fun factorize(n: Int): List<Int> {
     var x = n
-    var y = mutableListOf<Int>()
+    val y = mutableListOf<Int>()
     for (i in 2..x) {
         while (x % i == 0) {
             y.add(i)
@@ -261,15 +251,7 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int): String {
-    var x = n
-    var y = mutableListOf<Int>()
-    var z = String
-    for (i in 2..x) {
-        while (x % i == 0) {
-            x /= i
-            y.add(i)
-        }
-    }
+    val y = factorize(n)
     y.sorted()
     return y.joinToString(separator = "*")
 }
@@ -282,27 +264,23 @@ fun factorizeToString(n: Int): String {
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var result = mutableListOf<Int>()
-    var number = 0
-    var result2 = mutableListOf<Int>()
+    val result = mutableListOf<Int>()
     var x = n
-    var mainresult = mutableListOf<Int>()
-      if (n < base) result2.add(n)
-    while (x >= base) {
-        number = x % base
+    val mainresult = mutableListOf<Int>()
+    if (n < base) result.add(n)
+    else while (x / base != 0) {
+        val number = x % base
         result.add(number)
         x /= base
     }
-    if (n < base) return result2
-    else {
-        mainresult.add(x)
-        while (result.isNotEmpty()) {
-            mainresult.add(result.last())
-            result.remove(result.last())
-        }
-        return mainresult
+    mainresult.add(x)
+    while (result.isNotEmpty()) {
+        mainresult.add(result.last())
+        result.remove(result.last())
     }
+    return result
 }
+
 /**
  * Сложная
  *

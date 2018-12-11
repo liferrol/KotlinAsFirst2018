@@ -74,7 +74,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var number: Int = 1
+    var number = 1
     var a: Int = n
     while (a / 10 > 0) {
         number += 1
@@ -111,11 +111,12 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var low = m * n
-    for (krat in 1..low) {
-        if (krat % m == 0 && krat % n == 0 && krat < low) low = krat
+    val low = m * n
+    for (krat in 1..min(m, n)) {
+        return if (krat % m == 0 && krat % n == 0 && krat < low) krat
+        else low
     }
-    return low
+    return 1
 }
 
 /**
@@ -124,11 +125,12 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var mindel = n
+    val mindel = n
     for (del in 2..n) {
-        if (n % del == 0 && del < mindel) mindel = del
+        return if (n % del == 0 && del < mindel) del
+        else mindel
     }
-    return mindel
+    return 1
 }
 
 /**
@@ -137,11 +139,12 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var maxdel = 1
-    for (del in 1..n) {
-        if (n % del == 0 && del != n && del > maxdel) maxdel = del
+    val maxdel = 1
+    for (del in n downTo 1) {
+        return if (n % del == 0 && del != n && del > maxdel) del
+        else maxdel
     }
-    return maxdel
+    return 1
 }
 
 /**
@@ -153,7 +156,7 @@ fun maxDivisor(n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var maxdel = 0
-    for (del in 1..n) {
+    for (del in 1..maxOf(m, n)) {
         if (n % del == 0 && m % del == 0 && del > maxdel) maxdel = del
     }
     return maxdel == 1
@@ -224,20 +227,16 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun revert(n: Int): Int {
     var k = 0.0
     var xn = n
-    var x = n
     var b: Double
     var b1 = 0.0
-    while (x > 0) {
-        k += 1.0
-        x /= 10
-    }
     while (xn > 0) {
-        b = xn % 10 * Math.pow(10.0, k) / 10
+        k += 1.0
+        b = xn % 10 * Math.pow(10.0, k - 1)
         k -= 1.0
         xn /= 10
         b1 += b
     }
-    return toInt32(b1)
+    return b1.toInt()
 }
 
 /**
@@ -260,15 +259,12 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var x = n % 10
+    val x = n % 10
     var xx = n / 10
-    while (xx > 0) {
+    while (xx >= 0) {
         if (xx % 10 == x)
             xx /= 10
-        else {
-            x = -1
-            break
-        }
+        else return false
     }
     return x == -1
 }
