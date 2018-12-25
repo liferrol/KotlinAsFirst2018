@@ -2,10 +2,7 @@
 
 package lesson3.task1
 
-import jdk.nashorn.internal.runtime.JSType.toInt32
-import jdk.nashorn.internal.runtime.JSType.toDouble
 import lesson1.task1.sqr
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.math.floor
@@ -125,10 +122,9 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    val mindel = n
     for (del in 2..n) {
-        return if (n % del == 0 && del < mindel) del
-        else mindel
+        return if (n % del == 0 && del < n) del
+        else n
     }
     return 1
 }
@@ -300,4 +296,15 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var f = 0
+    var num = 0
+    for (x in 1..n) {
+        num = fib(x)
+        val ff = digitNumber(num)
+        f += ff
+        if (f >= n) break
+    }
+    for (x in 1..(f - n)) num /= 10
+    return num % 10
+}
