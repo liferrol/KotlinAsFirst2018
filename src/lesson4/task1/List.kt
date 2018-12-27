@@ -120,10 +120,9 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var abs = 0.0
-    var abs1: Double
     for (element in v) {
-        abs1 = Math.pow(element, 2.0)
-        abs = abs + abs1
+        val point: Double = Math.pow(element, 2.0)
+        abs += point
     }
     return sqrt(abs)
 }
@@ -135,11 +134,10 @@ fun abs(v: List<Double>): Double {
  */
 fun mean(list: List<Double>): Double {
     var aver = 0.0
-    var aver1: Double
     val x = list.size
     for (element in list) {
-        aver1 = element
-        aver += aver1
+        val anyelement: Double = element
+        aver += anyelement
     }
     return if (x == 0) 0.0
     else aver / x
@@ -155,13 +153,8 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    var aver = 0.0
-    val x = list.size
-    for (element in list) {
-        val aver1 = element
-        aver = aver + aver1
-    }
-    val averend = aver / x
+    var averend = 0.0
+    averend = mean(list)
     if (averend == 0.0) return list
     else
         for (i in 0 until list.size) {
@@ -195,12 +188,12 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    var v = 0.0
+    var result = 0.0
     for (i in 0 until p.size) {
-        val xxx = p[i] * Math.pow(x, i.toDouble())
-        v += xxx
+        val pointx = p[i] * Math.pow(x, i.toDouble())
+        result += pointx
     }
-    return v
+    return result
 }
 
 
@@ -266,18 +259,13 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
     var x = n
-    val mainresult = mutableListOf<Int>()
     if (n < base) result.add(n)
     else while (x / base != 0) {
         val number = x % base
         result.add(number)
         x /= base
     }
-    mainresult.add(x)
-    while (result.isNotEmpty()) {
-        mainresult.add(result.last())
-        result.remove(result.last())
-    }
+    result.reverse()
     return result
 }
 

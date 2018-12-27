@@ -90,8 +90,8 @@ fun fib(n: Int): Int {
     var i1 = 1
     var i2 = 1
     var result = 0
-    if (n in 1..2) result = 1
-    if (n == 3) result = 2
+    if (n in 1..2) return 1
+    if (n == 3) return 2
     else for (i in 3..n) {
         result = i1 + i2
         i1 = i2
@@ -223,16 +223,14 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun revert(n: Int): Int {
     var k = 0.0
     var xn = n
-    var b: Double
-    var b1 = 0.0
+    var b = 0
+    var b1 = 0
     while (xn > 0) {
-        k += 1.0
-        b = xn % 10 * Math.pow(10.0, k - 1)
-        k -= 1.0
-        xn /= 10
+        b = xn / 10
+        xn %= 10
         b1 += b
     }
-    return b1.toInt()
+    return b1
 }
 
 /**
@@ -296,15 +294,4 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int {
-    var f = 0
-    var num = 0
-    for (x in 1..n) {
-        num = fib(x)
-        val ff = digitNumber(num)
-        f += ff
-        if (f >= n) break
-    }
-    for (x in 1..(f - n)) num /= 10
-    return num % 10
-}
+fun fibSequenceDigit(n: Int): Int = TODO()

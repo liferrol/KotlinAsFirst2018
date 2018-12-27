@@ -104,7 +104,7 @@ fun dateDigitToStr(digital: String): String {
     try {
         if (parts.size != 3 || parts[1].toInt() !in 1..12) throw NumberFormatException()
         else monthx = a[parts[1].toInt() - 1]
-        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) throw NumberFormatException()
+        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
         return String.format("%d %s %d", parts[0].toInt(), monthx, parts[2].toInt())
     } catch (e: NumberFormatException) {
         return ""
